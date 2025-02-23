@@ -1,0 +1,93 @@
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    font-size: 10px;
+    width: 80em;
+    height: 80em;
+    position: relative;
+}
+
+.sun {
+    position: absolute;
+    top: 35em;
+    left: 35em;
+    width: 10em;
+    height: 10em;
+    background-color: yellow;
+    border-radius: 50%;
+    box-shadow: 0 0 3em white;
+}
+
+.planet {
+    position: absolute;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.moon {
+    position: absolute;
+    width: 1.2em;
+    height: 1.2em;
+    background-color: silver;
+    border-radius: 50%;
+    top: 1em;
+    left: 1em;
+    animation: orbit 2.7s linear infinite;
+}
+
+/* Planets */
+.mercury { top: 6em; left: 6em; width: 2em; height: 2em; background: gray; animation: orbit 8s linear infinite; }
+.venus { top: 12em; left: 12em; width: 3em; height: 3em; background: orange; animation: orbit 12s linear infinite; }
+.earth { top: 18em; left: 18em; width: 3.5em; height: 3.5em; background: blue; animation: orbit 16s linear infinite; }
+.mars { top: 24em; left: 24em; width: 3em; height: 3em; background: red; animation: orbit 22s linear infinite; }
+.jupiter { top: 34em; left: 34em; width: 7em; height: 7em; background: orange; animation: orbit 40s linear infinite; }
+.saturn { top: 44em; left: 44em; width: 6em; height: 6em; background: goldenrod; animation: orbit 50s linear infinite; }
+.uranus { top: 54em; left: 54em; width: 5em; height: 5em; background: lightblue; animation: orbit 70s linear infinite; }
+.neptune { top: 64em; left: 64em; width: 5em; height: 5em; background: darkblue; animation: orbit 80s linear infinite; }
+
+/* Saturn's Ring */
+.ring {
+    position: absolute;
+    top: 2em;
+    left: -1.5em;
+    width: 9em;
+    height: 1.5em;
+    background-color: burlywood;
+    border-radius: 50%;
+    transform: rotate(20deg);
+}
+
+/* Info Box */
+#info-box {
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    display: none;
+    text-align: center;
+}
+
+#info-box span {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+@keyframes orbit {
+    to { transform: rotate(360deg); }
+}
