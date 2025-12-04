@@ -165,15 +165,7 @@ function addStars() {
         starsVertices.push(x, y, z);
     }
 
-    starsGeometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(starsVertices), 3));
-    const stars = new THREE.Points(starsGeometry, starsMaterial);
-    scene.add(stars);
-}
-
-function createPlanet(name) {
-    const data = planetData[name];
-    const geometry = new THREE.IcosahedronGeometry(data.size, 64);
-    
+    starsGeometry.v
     // Create texture with procedural patterns
     const canvas = createPlanetTexture(name);
     const texture = new THREE.CanvasTexture(canvas);
@@ -197,18 +189,38 @@ function createPlanet(name) {
     scene.add(planet);
     planets[name] = planet;
 
-    // Add Saturn's rings
+    // Add Saturn's rings (realistic multi-band, semi-transparent)
     if (data.hasRings) {
-        const ringGeometry = new THREE.TorusGeometry(data.size * 1.8, data.size * 0.8, 32, 100);
-        const ringMaterial = new THREE.MeshPhongMaterial({
-            color: 0xb8860b,
+        // Main ring: thin, flat, semi-transparent
+        const ringGeometry = new THREE.RingGeometry(data.size * 1.3, data.size * 2.5, 128);
+        const ringMaterial = new THREE.MeshBasicMaterial({
+            color: 0xe6d8ad,
             side: THREE.DoubleSide,
-            shininess: 0,
-            emissive: 0x444444
+            transparent: true,
+            opacity: 0.45,
+            depthWrite: false
         });
-        const rings = new THREE.Mesh(ringGeometry, ringMaterial);
-        rings.rotation.x = Math.PI / 6.5;
-        planet.add(rings);
+        const mainRing = new THREE.Mesh(ringGeometry, ringMaterial);
+        mainRing.rotation.x = Math.PI / 2;
+        planet.add(mainRing);
+
+        // Add subtle colored bands
+        const bandColors = [0xd2b48c, 0xf5f5dc, 0xcccccc, 0xe6e6fa];
+        for (let i = 0; i < bandColors.length; i++) {
+            const inner = data.size * (1.35 + i * 0.25);
+            const outer = inner + 0.18 * data.size;
+            const bandGeometry = new THREE.RingGeometry(inner, outer, 128);
+            const bandMaterial = new THREE.MeshBasicMaterial({
+                color: bandColors[i],
+                side: THREE.DoubleSide,
+                transparent: true,
+                opacity: 0.22 + 0.08 * (i % 2),
+                depthWrite: false
+            });
+            const band = new THREE.Mesh(bandGeometry, bandMaterial);
+            band.rotation.x = Math.PI / 2;
+            planet.add(band);
+        }
     }
 }
 
