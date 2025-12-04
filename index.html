@@ -11,6 +11,7 @@
     <div id="canvas-container"></div>
 
     <div id="controls-panel">
+        <h3>Solar System Controls</h3>
         <div class="control-group">
             <label for="speed-slider">Rotation Speed:</label>
             <input type="range" id="speed-slider" min="0.1" max="5" step="0.1" value="1">
@@ -22,7 +23,20 @@
             </label>
         </div>
         <div class="control-group">
+            <label>
+                <input type="checkbox" id="show-orbits" checked> Show Orbits
+            </label>
+        </div>
+        <div class="control-group">
+            <label>
+                <input type="checkbox" id="free-look" unchecked> Free Look (WASD + Mouse)
+            </label>
+        </div>
+        <div class="control-group">
             <button id="reset-btn">Reset View</button>
+        </div>
+        <div class="info-text">
+            <small>Left Click: Select Planet | Right Click + Drag: Rotate | Scroll: Zoom</small>
         </div>
     </div>
 
